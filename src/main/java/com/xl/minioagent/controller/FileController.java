@@ -1,6 +1,6 @@
-package com.huayun.minioagent.controller;
+package com.xl.minioagent.controller;
 
-import com.huayun.minioagent.service.FileService;
+import com.xl.minioagent.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

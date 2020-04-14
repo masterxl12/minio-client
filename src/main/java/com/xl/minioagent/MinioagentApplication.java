@@ -1,4 +1,4 @@
-package com.huayun.minioagent;
+package com.xl.minioagent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

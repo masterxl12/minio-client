@@ -1,4 +1,4 @@
-package com.huayun.minioagent;
+package com.xl.minioagent;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

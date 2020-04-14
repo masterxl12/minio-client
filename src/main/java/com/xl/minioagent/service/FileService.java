@@ -1,9 +1,9 @@
-package com.huayun.minioagent.service;
+package com.xl.minioagent.service;
 
 import java.io.InputStream;
 import java.util.*;
 
-import com.huayun.minioagent.client.MinioClientUser;
+import com.xl.minioagent.client.MinioClientUser;
 import io.minio.Result;
 import io.minio.messages.Item;
 
@@ -14,15 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileService {
-//    public static void main(String[] args) {
-////        getDirLists();
-//        System.out.println(getFileLists("test02"));
-////        System.out.println(uploadFile("test02", "settings.txt",
-////                "/Users/masterxl/Desktop/testfile/settings.txt"));
-////        System.out.println(downloadFile("test02", "坐标系.md", "/Users/masterxl/Desktop/testfile"));
-////        System.out.println(deleteFile("test02","01load.txt"));
-//
-//    }
 
     /**
      * 列出所有的存储桶
@@ -118,7 +109,7 @@ public class FileService {
      * @param files
      * @return
      */
-    public String multiFileUpload(String bucketName,String filePath, MultipartFile[] files) {
+    public String multiFileUpload(String bucketName, String filePath, MultipartFile[] files) {
         String multiFileTips = "";
 
         try {
@@ -221,6 +212,27 @@ public class FileService {
         return deleteFileTips;
     }
 
+    public void getAllFiles(String bucketName) {
+        try {
+            MinioClientUser minioClientUser = new MinioClientUser();
+            MinioClient minioClient = minioClientUser.clientUser();
+            // 先判断存储桶和文件对象是否存在
+            boolean isExist = minioClient.bucketExists(bucketName);
+            if (isExist) {
+                Iterable<Result<Item>> myObjects = minioClient.listObjects(bucketName);
+                for (Result<Item> result : myObjects) {
+                    Item item = result.get();
+                    System.out.println(item);
+                }
+            } else {
+                System.out.println("=========");
+            }
+        } catch (Exception e) {
+            System.out.println("Error occured: " + e);
+        }
+
+    }
+
     public static String getSize(long size) {
         if (size >= 1024 * 1024 * 1024) {
 
@@ -315,6 +327,12 @@ class BucketLists {
                 "createTime:" + createTime +
                 ", name:'" + name + '\'' +
                 '}';
+    }
+
+    public static void main(String[] args) {
+        FileService fileService = new FileService();
+        fileService.getAllFiles("bis-test");
+
     }
 }
 
